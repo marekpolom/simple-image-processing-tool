@@ -1,0 +1,7 @@
+flask
+numpy
+python-dotenv
+scikit-image
+flask-cors
+opencv-python
+Pillow
