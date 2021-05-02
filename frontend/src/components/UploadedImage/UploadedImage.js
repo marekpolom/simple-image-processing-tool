@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
     },
     uploadedImgBox: {
         width: '35%',
-        height: '90%',
+        height: '100%',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -41,7 +41,7 @@ function UploadedImage({image}) {
     <Box className={classes.uploadedImgBox}>
         <UploadImage/>
         <Container className={classes.uploadedImgCont}>
-            {(image.length > 0) ? <img src={image[0]['data_url']} alt="" style={{maxWidth: '95%', maxHeight: '95%', boxShadow: '0px 0px 5px gray'}} /> : <ImageIcon style={{ fontSize: 100, color: 'rgba(0, 0, 0, 0.2)'}} />}
+            {(image.length > 0) ? <img src={image[0]['data_url']} alt="" style={{maxWidth: '95%', maxHeight: '95%', boxShadow: '0px 0px 3px gray'}} /> : <ImageIcon style={{ fontSize: 100, color: 'rgba(0, 0, 0, 0.2)'}} />}
         </Container>
     </Box>
   );

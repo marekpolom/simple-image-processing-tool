@@ -24,6 +24,7 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: '8px',
         display: 'flex',
         flexDirection: 'row',
+        boxShadow: '0px 0px 5px gray',
         [theme.breakpoints.down('sm')]: {
             width: '95%'
         },
@@ -44,6 +45,7 @@ const useStyles = makeStyles((theme) => ({
         padding: '0 1%',
         fontSize: '20px',
         flexGrow: '1',
+        boxShadow: '0px 0px 3px gray',
         [theme.breakpoints.down('sm')]: {
             fontSize: '15px',
         },

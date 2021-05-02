@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
   },
   resultImgBox: {
     width: "35%",
-    height: "90%",
+    height: "100%",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -41,7 +41,7 @@ function ResultImage({augImage}) {
     <Box className={classes.resultImgBox}>
       <DownloadImage />
       <Container className={classes.resultImgCont}>
-      {(augImage !== '') ? <img src={augImage} alt="" style={{maxWidth: '95%', maxHeight: '95%', boxShadow: '0px 0px 5px gray'}}/> : <ImageIcon style={{ fontSize: 100, color: 'rgba(0, 0, 0, 0.2)'}} />}
+      {(augImage !== '') ? <img src={augImage} alt="" style={{maxWidth: '95%', maxHeight: '95%', boxShadow: '0px 0px 3px gray'}}/> : <ImageIcon style={{ fontSize: 100, color: 'rgba(0, 0, 0, 0.2)'}} />}
       </Container>
     </Box>
   );

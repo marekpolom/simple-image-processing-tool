@@ -9,7 +9,7 @@ import { blue } from '@material-ui/core/colors';
 const useStyles = makeStyles((theme) => ({
     previewBox: {
         width: '100%',
-        height: '70vh',
+        height: '65vh',
         display: 'flex',
         justifyContent: 'center',
         [theme.breakpoints.down('xs')]: {
@@ -21,12 +21,14 @@ const useStyles = makeStyles((theme) => ({
     },
     arrowCont: {
         width: '12%',
-        height: '100%',
+        height: '55vh',
+        paddingTop: '10vh',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
         color: blue[600],
         [theme.breakpoints.down('xs')]: {
+            paddingTop: 0,
             height: '5vh',
             width: '100%',
             transform: 'rotate(90deg)'
