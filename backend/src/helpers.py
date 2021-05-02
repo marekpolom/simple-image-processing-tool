@@ -30,10 +30,8 @@ def arrayToBase64(img, type, compress):
         imgD.save(im_file, format=t, quality=75)
     elif compress and t == 'BMP':
         imgD.save(im_file, format='JPEG')
-        print(1)
     elif not compress and t == 'JPEG':
         imgD.save(im_file, format=t, quality=95)
-        print(2)
     elif not compress and t == 'PNG':
         imgD.save(im_file, format=t, optimize=False)
     else:
@@ -66,9 +64,13 @@ def resize(img, w, h):
 def crop(img, w, h, x, y):
     imgArr, type = base64ToArray(img)
 
-    imgArrC = imgArr[int(y):int(y)+int(h), int(x):int(x)+int(w)]
-
-    b64 = arrayToBase64(imgArrC, type, False)
+    if int(x) < imgArr.shape[1] and int(y) < imgArr.shape[0]:
+        imgArrC = imgArr[int(y):int(y)+int(h), int(x):int(x)+int(w)]
+        b64 = arrayToBase64(imgArrC, type, False)
+        print(1)
+    else:
+        b64 = arrayToBase64(imgArr, type, False)
+        print(2)
 
     return b64
 
