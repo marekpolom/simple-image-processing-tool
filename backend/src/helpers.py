@@ -10,14 +10,35 @@ def base64ToArray(img):
 
     img_data = base64.b64decode(imgTemp)
     im_file = BytesIO(img_data)
-    img_np = np.array(Image.open(im_file))
+
+    if(imgArr[0].split('/')[1].split(';')[0].upper() == "PNG"):
+        img_np = np.array(Image.open(im_file).convert('RGBA'))
+    else:
+        img_np = np.array(Image.open(im_file).convert('RGB'))
 
     return img_np, imgArr[0]
 
-def arrayToBase64(img, type):
+def arrayToBase64(img, type, compress):
     imgD = Image.fromarray(img)
     im_file = BytesIO()
-    imgD.save(im_file, format=type.split('/')[1].split(';')[0].upper())
+
+    t = type.split('/')[1].split(';')[0].upper()
+
+    if compress and t == 'PNG':
+        imgD.save(im_file, format=t, optimize=True)
+    elif compress and t == 'JPEG':
+        imgD.save(im_file, format=t, quality=75)
+    elif compress and t == 'BMP':
+        imgD.save(im_file, format='JPEG')
+        print(1)
+    elif not compress and t == 'JPEG':
+        imgD.save(im_file, format=t, quality=95)
+        print(2)
+    elif not compress and t == 'PNG':
+        imgD.save(im_file, format=t, optimize=False)
+    else:
+        imgD.save(im_file, format=t)
+
     im_bytes = im_file.getvalue()
     im_b64 = base64.b64encode(im_bytes).decode("utf-8")
 
@@ -28,16 +49,47 @@ def negative(img):
 
     imgArrN = util.invert(imgArr)
 
-    b64 = arrayToBase64(imgArrN, type)
+    b64 = arrayToBase64(imgArrN, type, False)
 
     return b64
 
 def resize(img, w, h):
     imgArr, type = base64ToArray(img)
 
-    imgArrR = transform.resize(imgArr, (int(w), int(h)))*255
+    imgArrR = transform.resize(imgArr, (int(h), int(w)))*255
     imgArrR = imgArrR.astype(np.uint8)
 
-    b64 = arrayToBase64(imgArrR, type)
+    b64 = arrayToBase64(imgArrR, type, False)
+
+    return b64
+
+def crop(img, w, h, x, y):
+    imgArr, type = base64ToArray(img)
+
+    imgArrC = imgArr[int(y):int(y)+int(h), int(x):int(x)+int(w)]
+
+    b64 = arrayToBase64(imgArrC, type, False)
+
+    return b64
+
+def rotate(img, deg, m, r):
+    imgArr, type = base64ToArray(img)
+
+    if(r == 'true'):
+        r = True
+    else:
+        r = False
+
+    imgArrR = transform.rotate(imgArr, float(int(deg)), mode=m, resize=r)*255
+    imgArrR = imgArrR.astype(np.uint8)
+
+    b64 = arrayToBase64(imgArrR, type, False)
+
+    return b64
+
+def compress(img):
+    imgArr, type = base64ToArray(img)
+
+    b64 = arrayToBase64(imgArr, type, True)
 
     return b64
