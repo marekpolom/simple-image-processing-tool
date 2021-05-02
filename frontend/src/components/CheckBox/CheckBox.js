@@ -4,7 +4,12 @@ import {
   Switch,
   TextField,
   FormControlLabel,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
   FormGroup,
+  Checkbox,
 } from "@material-ui/core";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import { blue } from "@material-ui/core/colors";
@@ -13,12 +18,11 @@ import { connect } from "react-redux";
 const useStyles = makeStyles({
   checkBoxBox: {
     width: "100%",
-    minHeight: "7vh",
-    backgroundColor: blue[100],
+    minHeight: '15vh'
   },
   formGroup: {
     width: "100%",
-    height: "33.3%",
+    minHeight: '15vh',
     display: "flex",
     justifyContent: "space-evenly",
     alignItems: "center",
@@ -26,6 +30,12 @@ const useStyles = makeStyles({
   inputs: {
     width: "75px",
   },
+  formControl: {
+    width: '130px'
+  },
+  formControlLabels: {
+    padding: '5px'
+  }
 });
 
 const BlueSwitch = withStyles({
@@ -42,45 +52,38 @@ const BlueSwitch = withStyles({
   track: {},
 })(Switch);
 
-function CheckBox({ inputs, handleInputChange, options, handleChange, order, addOrder, delOrder }) {
+const BlueCheckbox = withStyles({
+  root: {
+    color: blue[300],
+    '&$checked': {
+      color: blue[500],
+    },
+  },
+  checked: {},
+})((props) => <Checkbox color="default" {...props} />);
+
+function CheckBox({
+  inputs,
+  handleInputChange,
+  options,
+  handleChange,
+  order,
+  addOrder,
+  delOrder,
+}) {
   const classes = useStyles();
-
-  //   const [state, setState] = useState({
-  //     checkedNegative: false,
-  //     checkedCompress: false,
-  //     checkedResize: false,
-  //     checkedRotate: false,
-  //     checkedCrop: false,
-  //   });
-
-  //   const [inputState, setInputState] = useState({
-  //     resizeW: '',
-  //     resizeH: '',
-  //     rotateD: '',
-  //     cropH: '',
-  //     cropW: '',
-  //     cropX: '',
-  //     cropY: '',
-  //   });
-
-  //   const handleInputChange = (event) => {
-  //       setInputState({ ...inputState, [event.target.name]: event.target.value});
-  //   }
-
-  //   const handleChange = (event) => {
-  //     setState({ ...state, [event.target.name]: event.target.checked });
-  //   };
 
   return (
     <Box className={classes.checkBoxBox}>
       <FormGroup row className={classes.formGroup}>
         <FormControlLabel
+          className={classes.formControlLabels}
           control={
             <BlueSwitch
               checked={options.checkedNegative}
               onChange={(e) => {
                 handleChange(e.target.name, e.target.checked);
-                (e.target.checked) ? addOrder('NEGATIVE') : delOrder('NEGATIVE');
+                e.target.checked ? addOrder("NEGATIVE") : delOrder("NEGATIVE");
               }}
               name="checkedNegative"
             />
@@ -88,26 +91,27 @@ function CheckBox({ inputs, handleInputChange, options, handleChange, order, add
           label="Negative"
         />
         <FormControlLabel
+        className={classes.formControlLabels}
           control={
             <BlueSwitch
               checked={options.checkedCompress}
               onChange={(e) => {
                 handleChange(e.target.name, e.target.checked);
-                (e.target.checked) ? addOrder('COMPRESS') : delOrder('COMPRESS');
+                e.target.checked ? addOrder("COMPRESS") : delOrder("COMPRESS");
               }}
               name="checkedCompress"
             />
           }
           label="Compress"
         />
-        <Box>
+        <Box className={classes.formControlLabels}>
           <FormControlLabel
             control={
               <BlueSwitch
                 checked={options.checkedResize}
                 onChange={(e) => {
                   handleChange(e.target.name, e.target.checked);
-                  (e.target.checked) ? addOrder('RESIZE') : delOrder('RESIZE');
+                  e.target.checked ? addOrder("RESIZE") : delOrder("RESIZE");
                 }}
                 name="checkedResize"
               />
@@ -117,7 +121,11 @@ function CheckBox({ inputs, handleInputChange, options, handleChange, order, add
           <TextField
             name="resizeH"
             value={inputs.resizeH}
-            onChange={(e) => handleInputChange(e.target.name, e.target.value)}
+            onChange={(e) => {
+              if(!isNaN(e.target.value) || e.target.value === ''){
+                handleInputChange(e.target.name, e.target.value)
+              }
+            }}
             id="outlined-size-small"
             className={`input-checkedResize ${classes.inputs}`}
             label="Height"
@@ -128,7 +136,11 @@ function CheckBox({ inputs, handleInputChange, options, handleChange, order, add
           <TextField
             name="resizeW"
             value={inputs.resizeW}
-            onChange={(e) => handleInputChange(e.target.name, e.target.value)}
+            onChange={(e) => {
+              if(!isNaN(e.target.value) || e.target.value === ''){
+                handleInputChange(e.target.name, e.target.value)
+              }
+            }}
             id="outlined-size-small"
             className={`input-checkedResize ${classes.inputs}`}
             label="Width"
@@ -137,14 +149,14 @@ function CheckBox({ inputs, handleInputChange, options, handleChange, order, add
             disabled={!options.checkedResize ? true : false}
           />
         </Box>
-        <Box>
+        <Box className={classes.formControlLabels}>
           <FormControlLabel
             control={
               <BlueSwitch
                 checked={options.checkedRotate}
                 onChange={(e) => {
                   handleChange(e.target.name, e.target.checked);
-                  (e.target.checked) ? addOrder('ROTATE') : delOrder('ROTATE');
+                  e.target.checked ? addOrder("ROTATE") : delOrder("ROTATE");
                 }}
                 name="checkedRotate"
               />
@@ -154,7 +166,11 @@ function CheckBox({ inputs, handleInputChange, options, handleChange, order, add
           <TextField
             name="rotateD"
             value={inputs.rotateD}
-            onChange={(e) => handleInputChange(e.target.name, e.target.value)}
+            onChange={(e) => {
+              if(!isNaN(e.target.value) || e.target.value === ''){
+                handleInputChange(e.target.name, e.target.value)
+              }
+            }}
             id="outlined-size-small"
             className={`input-checkedRotate ${classes.inputs}`}
             label="Degree"
@@ -162,15 +178,46 @@ function CheckBox({ inputs, handleInputChange, options, handleChange, order, add
             size="small"
             disabled={!options.checkedRotate ? true : false}
           />
+          <FormControl variant="outlined" className={classes.formControl} size="small">
+        <InputLabel id="demo-simple-select-outlined-label">Mode</InputLabel>
+        <Select
+          name="rotateM"
+          labelId="demo-simple-select-outlined-label"
+          id="demo-simple-select-outlined"
+          value={inputs.rotateM}
+          className={`input-checkedRotate`}
+          onChange={(e) => {handleInputChange(e.target.name, e.target.value)}}
+          label="Age"
+          disabled={!options.checkedRotate ? true : false}
+        >
+          <MenuItem value='constant'>Constant</MenuItem>
+          <MenuItem value='edge'>Edge</MenuItem>
+          <MenuItem value='symmetric'>Symmetric</MenuItem>
+          <MenuItem value='reflect'>Reflect</MenuItem>
+          <MenuItem value='wrap'>Wrap</MenuItem>
+        </Select>
+      </FormControl>
+          <FormControlLabel
+            control={
+              <BlueCheckbox
+                checked={inputs.rotateR}
+                onChange={(e) => handleInputChange(e.target.name, e.target.checked)}
+                name="rotateR"
+                color={blue[500]}
+                disabled={!options.checkedRotate ? true : false}
+              />
+            }
+            label="Resize"
+          />
         </Box>
-        <Box>
+        <Box className={classes.formControlLabels}>
           <FormControlLabel
             control={
               <BlueSwitch
                 checked={options.checkedCrop}
                 onChange={(e) => {
                   handleChange(e.target.name, e.target.checked);
-                  (e.target.checked) ? addOrder('CROP') : delOrder('CROP');
+                  e.target.checked ? addOrder("CROP") : delOrder("CROP");
                 }}
                 name="checkedCrop"
               />
@@ -180,7 +227,11 @@ function CheckBox({ inputs, handleInputChange, options, handleChange, order, add
           <TextField
             name="cropH"
             value={inputs.cropH}
-            onChange={(e) => handleInputChange(e.target.name, e.target.value)}
+            onChange={(e) => {
+              if(!isNaN(e.target.value) || e.target.value === ''){
+                handleInputChange(e.target.name, e.target.value)
+              }
+            }}
             id="outlined-size-small"
             className={`input-checkedCrop ${classes.inputs}`}
             label="Height"
@@ -191,7 +242,11 @@ function CheckBox({ inputs, handleInputChange, options, handleChange, order, add
           <TextField
             name="cropW"
             value={inputs.cropW}
-            onChange={(e) => handleInputChange(e.target.name, e.target.value)}
+            onChange={(e) => {
+              if(!isNaN(e.target.value) || e.target.value === ''){
+                handleInputChange(e.target.name, e.target.value)
+              }
+            }}
             id="outlined-size-small"
             className={`input-checkedCrop ${classes.inputs}`}
             label="Width"
@@ -202,7 +257,11 @@ function CheckBox({ inputs, handleInputChange, options, handleChange, order, add
           <TextField
             name="cropX"
             value={inputs.cropX}
-            onChange={(e) => handleInputChange(e.target.name, e.target.value)}
+            onChange={(e) => {
+              if(!isNaN(e.target.value) || e.target.value === ''){
+                handleInputChange(e.target.name, e.target.value)
+              }
+            }}
             id="outlined-size-small"
             className={`input-checkedCrop ${classes.inputs}`}
             label="X"
@@ -213,7 +272,11 @@ function CheckBox({ inputs, handleInputChange, options, handleChange, order, add
           <TextField
             name="cropY"
             value={inputs.cropY}
-            onChange={(e) => handleInputChange(e.target.name, e.target.value)}
+            onChange={(e) => {
+              if(!isNaN(e.target.value) || e.target.value === ''){
+                handleInputChange(e.target.name, e.target.value)
+              }
+            }}
             id="outlined-size-small"
             className={`input-checkedCrop ${classes.inputs}`}
             label="Y"

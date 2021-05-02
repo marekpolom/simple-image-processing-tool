@@ -9,19 +9,20 @@ const augmentImage = async (img, data, order) => {
         CROP: cropReq
     }
 
-    let image = img;
+    let image = img.data_url;
 
-    await Promise.all(order.map(async (name) => {
-        image = await func[name](image);
-    }));
+
+    for await (let x of order){
+        image = await func[x]({...data, ['img']: image});
+    }
 
     return image;
 };
 
-const negativeReq = async (img) => {
+const negativeReq = async (data) => {
     return new Promise((resolve) => {
         defaultAxios.post('/negative', {
-            img: img.data_url
+            img: data.img
         })
         .then((res) => {
             resolve(res.data);
@@ -32,20 +33,75 @@ const negativeReq = async (img) => {
     });
 };
 
-const compressReq = async (img) => {
-
+const compressReq = async (data) => {
+    return new Promise((resolve) => {
+        defaultAxios.post('/compress', {
+            img: data.img
+        })
+        .then((res) => {
+            resolve(res.data);
+        })
+        .catch((e) => {
+            console.log(e);
+        })
+    });
 };
 
-const resizeReq = async (img, h, w) => {
-
+const resizeReq = async (data) => {
+    return new Promise((resolve) => {
+        defaultAxios.post('/resize', {
+            img: data.img
+        },
+        { params: {
+            width: data.resizeW,
+            height: data.resizeH
+        }})
+        .then((res) => {
+            resolve(res.data);
+        })
+        .catch((e) => {
+            console.log(e);
+        })
+    });
 };
 
-const rotateReq = async (img, deg) => {
-
+const rotateReq = async (data) => {
+    return new Promise((resolve) => {
+        defaultAxios.post('/rotate', {
+            img: data.img
+        },
+        { params: {
+            deg: data.rotateD,
+            mode: data.rotateM,
+            resize: data.rotateR
+        }})
+        .then((res) => {
+            resolve(res.data);
+        })
+        .catch((e) => {
+            console.log(e);
+        })
+    });
 };
 
-const cropReq = async (img, w, h, x, y) => {
-
+const cropReq = async (data) => {
+    return new Promise((resolve) => {
+        defaultAxios.post('/crop', {
+            img: data.img
+        },
+        { params: {
+            width: data.cropW,
+            height: data.cropH,
+            x: data.cropX,
+            y: data.cropY
+        }})
+        .then((res) => {
+            resolve(res.data);
+        })
+        .catch((e) => {
+            console.log(e);
+        })
+    });
 }
 
 export default augmentImage;

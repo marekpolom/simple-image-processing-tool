@@ -18,7 +18,6 @@ const useStyles = makeStyles((theme) => ({
       },
     btnsBox: {
         width: '100%',
-        height: '100%',
         display: 'flex',
         justifyContent: 'space-around'
     },
@@ -41,6 +40,7 @@ function UploadImage({image, setImage}) {
   return (
     <Box className={classes.uploadBox}>
         <ImageUploading
+        className={classes.btnsBox}
         value={image}
         onChange={onChange}
         dataURLKey="data_url"
@@ -59,13 +59,13 @@ function UploadImage({image, setImage}) {
                     className={classes.button}
                     startIcon={<PublishIcon />}
                     onClick={onImageUpload}
-                >Upload Image</Button>
+                >Upload</Button>
                 <Button
                     variant="contained"
                     className={classes.button}
                     startIcon={<DeleteIcon />}
                     onClick={onImageRemoveAll}
-                >Remove Image</Button>
+                >Remove</Button>
           </Box>
         )}
       </ImageUploading>

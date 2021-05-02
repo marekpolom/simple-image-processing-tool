@@ -9,19 +9,29 @@ import { blue, grey } from '@material-ui/core/colors';
 const useStyles = makeStyles((theme) => ({
     mainBox: {
         width: '100%',
-        minHeight: "13vh",
-        backgroundColor: blue[100],
+        height: "15vh",
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
+        [theme.breakpoints.down('xs')]: {
+            height: '50vh',
+        },
     },
     orderBox: {
-        height: '60%',
+        height: '8vh',
         width: '80%',
         backgroundColor: 'white',
         borderRadius: '8px',
         display: 'flex',
-        flexDirection: 'row'
+        flexDirection: 'row',
+        [theme.breakpoints.down('sm')]: {
+            width: '95%'
+        },
+        [theme.breakpoints.down('xs')]: {
+            height: '40vh',
+            flexDirection: 'column',
+            width: '70%'
+        },
     },
     orderElement: {
         backgroundColor: blue[400],
@@ -30,9 +40,21 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        margin: '0.4%',
+        margin: '0.5%',
         padding: '0 1%',
-        fontSize: '20px'
+        fontSize: '20px',
+        flexGrow: '1',
+        [theme.breakpoints.down('sm')]: {
+            fontSize: '15px',
+        },
+        [theme.breakpoints.down('xs')]: {
+            width: '95%',
+            fontWeight: 600,
+            padding: '0 2%',
+            flexDirection: 'row',
+            fontSize: '18px',
+            textAlign: 'center',
+        },
     },
     noOrderElement: {
         borderRadius: '8px',
@@ -44,9 +66,28 @@ const useStyles = makeStyles((theme) => ({
         padding: '0 1%',
         fontSize: '20px',
         color: grey[400],
-        width: '100%',
+        width: '98%',
         fontWeight: 700,
-        cursor: 'default'
+        cursor: 'default',
+        [theme.breakpoints.down('xs')]: {
+            height: '100%',
+            fontWeight: 600,
+            width: '90%',
+            flexDirection: 'column',
+            fontSize: '18px',
+            textAlign: 'center',
+            padding: '0 5%',
+        },
+    },
+    arrowIcon: {
+        fontSize: '30px',
+        [theme.breakpoints.down('sm')]: {
+            fontSize: '20px',
+        },
+        [theme.breakpoints.down('xs')]: {
+            fontSize: '30px',
+            transform: 'rotate(90deg)'
+        },
     }
   }));
 
@@ -54,19 +95,13 @@ const useStyles = makeStyles((theme) => ({
 function AugOrder({order, handleOrder, clearOrder}) {
   const classes = useStyles();
 
-//   const [orderCopy, setOrderCopy] = useState(order);
-
-//   useEffect(() => {
-//     setOrderCopy(order);
-//   }, [order])
-
   return (
     <Box className={classes.mainBox}>
         <Box className={classes.orderBox}>
             {(order.length > 0) ? order.map((item, index) => {
                 return(
-                    <Box key={index} className={classes.orderElement} style={{width: `${100/order.length}%`}}>
-                        <NavigateBeforeIcon style={{fontSize: '30px', cursor: `${(index === 0) ? 'not-allowed' : 'pointer'}`}} onClick={() => {
+                    <Box key={index} className={classes.orderElement}>
+                        <NavigateBeforeIcon className={classes.arrowIcon} style={{cursor: `${(index === 0) ? 'not-allowed' : 'pointer'}`}} onClick={() => {
                             let orderCp = order.map((item) => item);
                             if(index > 0){
                                 clearOrder();
@@ -77,7 +112,7 @@ function AugOrder({order, handleOrder, clearOrder}) {
                             }
                         }}/>
                         {item}
-                        <NavigateNextIcon style={{fontSize: '30px', cursor: `${(index === order.length-1) ? 'not-allowed' : 'pointer'}`}} onClick={() => {
+                        <NavigateNextIcon className={classes.arrowIcon} style={{cursor: `${(index === order.length-1) ? 'not-allowed' : 'pointer'}`}} onClick={() => {
                             let orderCp = order.map((item) => item);
                             if(index < orderCp.length-1){
                                 clearOrder();

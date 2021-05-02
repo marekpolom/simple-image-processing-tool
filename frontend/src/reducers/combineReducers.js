@@ -3,7 +3,7 @@ import { combineReducers } from "redux";
 const image = (state = [], action) => {
   switch (action.type) {
     case "SET_IMG":
-      console.log(action.image)
+      // console.log(action.image)
       return action.image;
     default:
       return state;
@@ -13,7 +13,6 @@ const image = (state = [], action) => {
 const augImage = (state = '', action) => {
   switch (action.type) {
     case "SET_AUG_IMG":
-      // console.log(action.image)
       return action.image;
     default:
       return state;
@@ -24,10 +23,13 @@ const inputs = (state = {
     resizeW: '',
     resizeH: '',
     rotateD: '',
+    rotateM: 'constant',
+    rotateR: false,
     cropH: '',
     cropW: '',
     cropX: '',
     cropY: '',
+    img: ''
   }, action) => {
   switch (action.type) {
     case "HANDLE_INPUT":

@@ -5,7 +5,7 @@ import ImageIcon from "@material-ui/icons/Image";
 import DownloadImage from "../DownloadImage/DownloadImage";
 import { connect } from "react-redux";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   resultImgCont: {
     width: "100%",
     height: "80%",
@@ -24,8 +24,15 @@ const useStyles = makeStyles({
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "space-around",
+    [theme.breakpoints.down('sm')]: {
+      width: '40%',
+    },
+  [theme.breakpoints.down('xs')]: {
+      width: '90%',
+      height: '40vh'
   },
-});
+  },
+}));
 
 function ResultImage({augImage}) {
   const classes = useStyles();
@@ -34,7 +41,7 @@ function ResultImage({augImage}) {
     <Box className={classes.resultImgBox}>
       <DownloadImage />
       <Container className={classes.resultImgCont}>
-      {(augImage !== '') ? <img src={augImage} alt="" width="100%" /> : <ImageIcon style={{ fontSize: 100, color: 'rgba(0, 0, 0, 0.2)'}} />}
+      {(augImage !== '') ? <img src={augImage} alt="" style={{maxWidth: '95%', maxHeight: '95%', boxShadow: '0px 0px 5px gray'}}/> : <ImageIcon style={{ fontSize: 100, color: 'rgba(0, 0, 0, 0.2)'}} />}
       </Container>
     </Box>
   );

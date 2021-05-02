@@ -16,6 +16,11 @@ const useStyles = makeStyles((theme) => ({
             backgroundColor: blue[300],
         }
       },
+      btnsBox: {
+        width: '100%',
+        display: 'flex',
+        justifyContent: 'space-around'
+    },
     downloadBox: {
         width: '100%',
         minHeight: '10vh',
@@ -31,6 +36,7 @@ function DownloadImage({image, inputs, order, augImage, setAugImage}) {
 
   return (
     <Box className={classes.downloadBox}>
+        <Box className={classes.btnsBox}>
         <Button
             variant="contained"
             className={classes.button}
@@ -38,22 +44,21 @@ function DownloadImage({image, inputs, order, augImage, setAugImage}) {
             onClick={async () => {
                 if(image.length > 0){
                     const img = await augmentImage(image[0], inputs, order);
-                    console.log(img);
+                    // console.log(img);
                     setAugImage(img);
                 }}}
             >
-                Augment Image
+                Augment
         </Button>
-        <a download="FILENAME.EXT" href={augImage}>
-            <Button
-                variant="contained"
-                className={classes.button}
-                startIcon={<GetAppIcon />}
-                onClick={() => {console.log('click!')}}
-                >
-                    Download Image
-            </Button>
-        </a>
+        <Button
+            variant="contained"
+            className={classes.button}
+            startIcon={<GetAppIcon />}
+            onClick={() => {console.log('click!')}}
+            >
+                Download
+        </Button>
+        </Box>
     </Box>
   );
 }

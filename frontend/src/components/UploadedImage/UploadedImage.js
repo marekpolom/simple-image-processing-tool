@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import ImageIcon from '@material-ui/icons/Image';
 import UploadImage from '../UploadImage/UploadImage';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
     uploadedImgCont: {
         width: '100%',
         height: '80%',
@@ -23,9 +23,16 @@ const useStyles = makeStyles({
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        justifyContent: 'space-around'
+        justifyContent: 'space-around',
+        [theme.breakpoints.down('sm')]: {
+            width: '40%',
+          },
+        [theme.breakpoints.down('xs')]: {
+            width: '90%',
+            height: '40vh'
+        },
     }
-});
+}));
 
 function UploadedImage({image}) {
   const classes = useStyles();
@@ -34,7 +41,7 @@ function UploadedImage({image}) {
     <Box className={classes.uploadedImgBox}>
         <UploadImage/>
         <Container className={classes.uploadedImgCont}>
-            {(image.length > 0) ? <img src={image[0]['data_url']} alt="" width="100%" /> : <ImageIcon style={{ fontSize: 100, color: 'rgba(0, 0, 0, 0.2)'}} />}
+            {(image.length > 0) ? <img src={image[0]['data_url']} alt="" style={{maxWidth: '95%', maxHeight: '95%', boxShadow: '0px 0px 5px gray'}} /> : <ImageIcon style={{ fontSize: 100, color: 'rgba(0, 0, 0, 0.2)'}} />}
         </Container>
     </Box>
   );
