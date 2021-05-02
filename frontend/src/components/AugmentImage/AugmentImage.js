@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
     button: {
         margin: theme.spacing(1),
         backgroundColor: blue[400],
-        width: '200px',
+        width: '100%',
         '&:hover':{
             backgroundColor: blue[300],
         }
@@ -21,9 +21,8 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         justifyContent: 'space-around'
     },
-    downloadBox: {
+    augmentBox: {
         width: '100%',
-        minHeight: '10vh',
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-evenly',
@@ -31,11 +30,11 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
-function DownloadImage({image, inputs, order, augImage, setAugImage}) {
+function AugmentImage({image, inputs, order, augImage, setAugImage}) {
   const classes = useStyles();
 
   return (
-    <Box className={classes.downloadBox}>
+    <Box className={classes.augmentBox}>
         <Box className={classes.btnsBox}>
         <Button
             variant="contained"
@@ -44,19 +43,10 @@ function DownloadImage({image, inputs, order, augImage, setAugImage}) {
             onClick={async () => {
                 if(image.length > 0){
                     const img = await augmentImage(image[0], inputs, order);
-                    // console.log(img);
                     setAugImage(img);
                 }}}
             >
                 Augment
-        </Button>
-        <Button
-            variant="contained"
-            className={classes.button}
-            startIcon={<GetAppIcon />}
-            onClick={() => {console.log('click!')}}
-            >
-                Download
         </Button>
         </Box>
     </Box>
@@ -80,4 +70,4 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(DownloadImage);
+export default connect(mapStateToProps, mapDispatchToProps)(AugmentImage);

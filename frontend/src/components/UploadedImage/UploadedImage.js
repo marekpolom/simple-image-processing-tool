@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
         height: '80%',
         backgroundColor: 'white',
         borderRadius: '8px',
-        boxShadow: '0px 0px 10px gray',
+        boxShadow: '0px 0px 5px gray',
         margin: '0',
         display: 'flex',
         justifyContent: 'center',

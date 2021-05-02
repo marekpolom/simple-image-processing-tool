@@ -64,6 +64,8 @@ const resizeReq = async (data) => {
             })
         });
     }
+
+    return(data.img);
 };
 
 const rotateReq = async (data) => {
@@ -86,7 +88,7 @@ const rotateReq = async (data) => {
         });
     }
 
-    return data.img
+    return(data.img);
 };
 
 const cropReq = async (data) => {
@@ -110,7 +112,7 @@ const cropReq = async (data) => {
         });
     }
 
-    return(data.img)
+    return(data.img);
 }
 
 export default augmentImage;

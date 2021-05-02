@@ -2,7 +2,7 @@ import React from "react";
 import { Container, Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import ImageIcon from "@material-ui/icons/Image";
-import DownloadImage from "../DownloadImage/DownloadImage";
+import DownloadImage from "../AugmentImage/AugmentImage";
 import { connect } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
     height: "80%",
     backgroundColor: "white",
     borderRadius: "8px",
-    boxShadow: "0px 0px 10px gray",
+    boxShadow: "0px 0px 5px gray",
     margin: "0",
     display: "flex",
     justifyContent: "center",

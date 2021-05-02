@@ -3,7 +3,6 @@ import { combineReducers } from "redux";
 const image = (state = [], action) => {
   switch (action.type) {
     case "SET_IMG":
-      // console.log(action.image)
       return action.image;
     default:
       return state;
