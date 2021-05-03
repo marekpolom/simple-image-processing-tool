@@ -1,4 +1,4 @@
-from skimage import color, util, transform
+from skimage import util, transform
 import numpy as np
 import base64
 from PIL import Image
