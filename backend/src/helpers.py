@@ -54,22 +54,28 @@ def negative(img):
 def resize(img, w, h):
     imgArr, type = base64ToArray(img)
 
-    imgArrR = transform.resize(imgArr, (int(h), int(w)))*255
-    imgArrR = imgArrR.astype(np.uint8)
+    if w != '' and h != '':
+        imgArrR = transform.resize(imgArr, (int(h), int(w)))*255
+        imgArrR = imgArrR.astype(np.uint8)
 
-    b64 = arrayToBase64(imgArrR, type, False)
+        b64 = arrayToBase64(imgArrR, type, False)
+    else:
+        b64 = arrayToBase64(imgArr, type, False)
 
     return b64
 
 def crop(img, w, h, x, y):
     imgArr, type = base64ToArray(img)
 
-    if int(x) < imgArr.shape[1] and int(y) < imgArr.shape[0]:
-        imgArrC = imgArr[int(y):int(y)+int(h), int(x):int(x)+int(w)]
-        b64 = arrayToBase64(imgArrC, type, False)
+    if w != '' and h != '' and x != '' and y != '':
+        if int(x) < imgArr.shape[1] and int(y) < imgArr.shape[0]:
+            imgArrC = imgArr[int(y):int(y)+int(h), int(x):int(x)+int(w)]
+            b64 = arrayToBase64(imgArrC, type, False)
+        else:
+            b64 = arrayToBase64(imgArr, type, False)
     else:
         b64 = arrayToBase64(imgArr, type, False)
-
+        
     return b64
 
 def rotate(img, deg, m, r):
