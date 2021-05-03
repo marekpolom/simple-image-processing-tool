@@ -67,10 +67,8 @@ def crop(img, w, h, x, y):
     if int(x) < imgArr.shape[1] and int(y) < imgArr.shape[0]:
         imgArrC = imgArr[int(y):int(y)+int(h), int(x):int(x)+int(w)]
         b64 = arrayToBase64(imgArrC, type, False)
-        print(1)
     else:
         b64 = arrayToBase64(imgArr, type, False)
-        print(2)
 
     return b64
 
