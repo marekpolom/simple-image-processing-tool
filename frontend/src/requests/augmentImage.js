@@ -47,7 +47,7 @@ const compressReq = async (data) => {
 };
 
 const resizeReq = async (data) => {
-    if(!isNaN(data.resizeH) && !isNaN(data.resizeW)){
+    if(data.resizeH !== '' && data.resizeW !== '' && data.resizeX !== '' && data.resizeY !== ''){
         return new Promise((resolve) => {
             defaultAxios.post('/resize', {
                 img: data.img
