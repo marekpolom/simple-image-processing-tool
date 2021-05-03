@@ -1,7 +1,6 @@
 import React from 'react';
 import { Box, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import GetAppIcon from '@material-ui/icons/GetApp';
 import BurstModeIcon from '@material-ui/icons/BurstMode';
 import { connect } from "react-redux";
 import { blue } from '@material-ui/core/colors';

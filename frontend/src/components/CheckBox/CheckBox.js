@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Box,
   Switch,
@@ -15,7 +15,6 @@ import {
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import { blue } from "@material-ui/core/colors";
 import { connect } from "react-redux";
-import { findByLabelText } from "@testing-library/dom";
 
 const useStyles = makeStyles((theme) => ({
   checkBoxBox: {
